@@ -4,15 +4,19 @@ var pendientes = [
     {descripcion: "Dormir",completado: true},
     {descripcion: "Cortarse el pelo", completado: false}
 ];
-function imprimirPendiente(pendiente, index){
+function imprimirPendientes(pendiente, index){
     var lista= document.getElementById("lista");
     lista.insertAdjacentHTML('beforeend',
     `<li `+ estaCompletado(pendiente.completado) + ` onClick="marcarCompletado(` + index + `)">
     <div class="checkbox"><i class="fa fa-check"></i></div>
     <div class="descripcion">` + pendiente.descripcion + `</div>
-    <i class="fa fa-times" onclick="eliminarPendeinte(`+index+`)"><i>
+    <i class="fa fa-times" onclick="eliminarPendiente(`+index+`)"><i>
     </li>`
     );
+}
+function eliminarPendiente(index){
+    pendientes.splice(index, 1);
+    imprimirTodosLosPendientes();
 }
 function estaCompletado(completado){
     if(completado){
@@ -22,16 +26,15 @@ function estaCompletado(completado){
     }
 }
 function marcarCompletado(index){
-    var pendientesInterfaz = document.getElementsByClassName("pendiente");
-    pendientesInterfaz[index].classList.toggle("done");
     pendientes[index].completado = !pendientes[index].completado;
+    imprimirTodosLosPendientes();
 }
 function imprimirTodosLosPendientes(){
     document.getElementById("lista").innerHTML ="";
     pendientes.forEach(imprimirPendientes);
 }
 function agregarPendiente(){
-    var pendiente = document.getElementById("item").nodeValue;
+    var pendiente = document.getElementById("item").value;
     pendientes.push({descripcion: pendiente, completado: false});
     imprimirTodosLosPendientes();
 }
