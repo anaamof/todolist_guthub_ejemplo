@@ -4,12 +4,13 @@ var pendientes = [
     {descripcion: "Dormir",completado: true},
     {descripcion: "Cortarse el pelo", completado: false}
 ];
-function imprimirPendientes(pendiente, index){
+function imprimirPendiente(pendiente, index){
     var lista= document.getElementById("lista");
     lista.insertAdjacentHTML('beforeend',
     `<li `+ estaCompletado(pendiente.completado) + ` onClick="marcarCompletado(` + index + `)">
     <div class="checkbox"><i class="fa fa-check"></i></div>
     <div class="descripcion">` + pendiente.descripcion + `</div>
+    <i class="fa fa-times" onclick="eliminarPendeinte(`+index+`)"><i>
     </li>`
     );
 }
@@ -30,6 +31,8 @@ function imprimirTodosLosPendientes(){
     pendientes.forEach(imprimirPendientes);
 }
 function agregarPendiente(){
-
+    var pendiente = document.getElementById("item").nodeValue;
+    pendientes.push({descripcion: pendiente, completado: false});
+    imprimirTodosLosPendientes();
 }
 pendientes.forEach(imprimirPendientes);
